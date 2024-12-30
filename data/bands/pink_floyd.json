@@ -1,0 +1,38 @@
+{
+	"albums": [
+		{
+			"name": "The Dark Side of the Moon",
+			"year": "1973",
+			"genre": "Progressive Rock"
+		},
+		{
+			"name": "Wish You Were Here",
+			"year": "1975",
+			"genre": "Progressive Rock"
+		},
+		{
+			"name": "Animals",
+			"year": "1977",
+			"genre": "Progressive Rock"
+		},
+		{
+			"name": "The Wall",
+			"year": "1979",
+			"genre": "Progressive Rock"
+		},
+		{
+			"name": "Meddle",
+			"year": "1971",
+			"genre": "Progressive Rock"
+		},
+		{
+			"name": "Atom Heart Mother",
+			"year": "1970",
+			"genre": "Progressive Rock"
+		}
+	],
+	"country": "United Kingdom",
+	"genre": "Progressive Rock",
+	"name": "Pink Floyd",
+	"year": "1965"
+}

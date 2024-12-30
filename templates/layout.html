@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Database</title>
+    <script src="https://unpkg.com/htmx.org@1.9.9"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .toast-enter { 
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        .toast-enter-active {
+            opacity: 1;
+            transform: translateX(0);
+            transition: opacity 300ms, transform 300ms;
+        }
+        .toast-exit {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .toast-exit-active {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity 300ms, transform 300ms;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
+    
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold mb-8 text-center text-gray-800">Music Database</h1>
+        {{template "content" .}}
+    </div>
+
+    <script>
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = 'toast-enter max-w-sm w-full bg-white shadow-lg rounded-lg overflow-hidden';
+            
+            if (type === 'success') {
+                toast.classList.add('bg-green-50');
+            } else if (type === 'error') {
+                toast.classList.add('bg-red-50');
+            }
+            
+            toast.innerHTML = `
+                <div class="p-4">
+                    <div class="flex items-center">
+                        <div class="flex-1">
+                            <p class="text-sm font-medium ${type === 'success' ? 'text-green-800' : 'text-red-800'}">${message}</p>
+                        </div>
+                        <button onclick="this.closest('.max-w-sm').remove()" class="ml-4 inline-flex text-gray-400 hover:text-gray-500">
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('toast-container').appendChild(toast);
+            
+            // Trigger enter animation
+            requestAnimationFrame(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-enter-active');
+            });
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('toast-enter-active');
+                toast.classList.add('toast-exit');
+                requestAnimationFrame(() => {
+                    toast.classList.add('toast-exit-active');
+                    setTimeout(() => toast.remove(), 300);
+                });
+            }, 3000);
+        }
+
+        // Handle HTMX error events
+        document.body.addEventListener('htmx:responseError', function(evt) {
+            showToast('An error occurred. Please try again.', 'error');
+        });
+    </script>
+</body>
+</html>

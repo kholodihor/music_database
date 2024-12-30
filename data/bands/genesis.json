@@ -1,0 +1,13 @@
+{
+	"name": "Genesis",
+	"country": "UK",
+	"year": "1968",
+	"genre": "Progressive Rock",
+	"albums": [
+		{
+			"name": "I can`t dance",
+			"year": "1991",
+			"genre": "Progressive Rock"
+		}
+	]
+}

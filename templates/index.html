@@ -1,0 +1,176 @@
+{{define "content"}}
+<style>
+    body {
+        background: linear-gradient(to bottom, #0f1729, #1a1b4b);
+        min-height: 100vh;
+        color: #e2e8f0;
+    }
+    .cosmic-card {
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(148, 163, 184, 0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                   0 2px 4px -1px rgba(0, 0, 0, 0.06),
+                   0 0 0 1px rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+    }
+    .cosmic-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px -1px rgba(0, 0, 0, 0.2),
+                   0 4px 8px -1px rgba(0, 0, 0, 0.1),
+                   0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+    .cosmic-input {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        color: #e2e8f0;
+    }
+    .cosmic-input:focus {
+        border-color: #818cf8;
+        box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2);
+    }
+    .cosmic-button {
+        background: linear-gradient(135deg, #818cf8, #6366f1);
+        color: white;
+        transition: all 0.3s ease;
+    }
+    .cosmic-button:hover {
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        transform: translateY(-1px);
+    }
+    .cosmic-tag {
+        background: rgba(129, 140, 248, 0.1);
+        color: #818cf8;
+        border: 1px solid rgba(129, 140, 248, 0.2);
+    }
+    .page-title {
+        color: #e2e8f0;
+        text-shadow: 0 0 10px rgba(129, 140, 248, 0.5);
+    }
+</style>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-4xl font-bold text-center mb-12 page-title">Space Bands Database</h1>
+    
+    <!-- Add Band Form -->
+    <div class="max-w-2xl mx-auto">
+        <div class="cosmic-card p-8 rounded-xl">
+            <h2 class="text-2xl font-bold mb-6 text-indigo-200">Add New Band</h2>
+            <form hx-post="/addBand" 
+                  hx-target="#bandsList" 
+                  hx-swap="innerHTML"
+                  hx-on::after-request="if (event.detail.successful) { showToast('Band added successfully!', 'success'); }"
+                  class="space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-indigo-200 mb-1">Name</label>
+                    <input type="text" name="name" required 
+                           class="p-2 cosmic-input mt-1 block w-full rounded-lg shadow-sm 
+                                  focus:outline-none transition duration-200">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-indigo-200 mb-1">Country</label>
+                    <input type="text" name="country" required 
+                           class=" p-2 cosmic-input mt-1 block w-full rounded-lg shadow-sm 
+                                  focus:outline-none transition duration-200">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-indigo-200 mb-1">Year</label>
+                    <input type="text" name="year" required 
+                           class=" p-2 cosmic-input mt-1 block w-full rounded-lg shadow-sm 
+                                  focus:outline-none transition duration-200">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-indigo-200 mb-1">Genre</label>
+                    <input type="text" name="genre" required 
+                           class=" p-2 cosmic-input mt-1 block w-full rounded-lg shadow-sm 
+                                  focus:outline-none transition duration-200">
+                </div>
+                <button type="submit" 
+                        class="cosmic-button w-full px-6 py-3 rounded-lg font-medium
+                               focus:outline-none focus:ring-2 focus:ring-indigo-500 
+                               focus:ring-offset-2 transition duration-200">
+                    Add Band
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bands List -->
+    <div id="bandsList" class="mt-12 space-y-6">
+        {{template "bands" .}}
+    </div>
+</div>
+{{end}}
+
+{{define "bands"}}
+{{range .Bands}}
+<div class="cosmic-card p-8 rounded-xl">
+    <div class="flex justify-between items-start">
+        <div>
+            <h3 class="text-2xl font-bold text-indigo-200">{{.Name}}</h3>
+            <div class="mt-2 space-x-2">
+                <span class="cosmic-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium">
+                    {{.Country}}
+                </span>
+                <span class="cosmic-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium">
+                    {{.Year}}
+                </span>
+                <span class="cosmic-tag inline-flex items-center px-3 py-1 rounded-full text-sm font-medium">
+                    {{.Genre}}
+                </span>
+            </div>
+        </div>
+        <button hx-delete="/bands/{{.Name}}" 
+                hx-target="#bandsList"
+                hx-on::after-request="showToast('Band deleted successfully!', 'success')"
+                class="text-red-400 hover:text-red-300 transition duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+    
+    <!-- Albums -->
+    <div class="mt-6">
+        <h4 class="text-lg font-semibold text-indigo-200 mb-3">Albums</h4>
+        <div class="space-y-2">
+            {{range .Albums}}
+            <div class="flex items-center space-x-2 text-gray-600 bg-gray-50 p-3 rounded-lg">
+                <span class="font-medium">{{.Name}}</span>
+                <span class="text-gray-400">•</span>
+                <span>{{.Year}}</span>
+                <span class="text-gray-400">•</span>
+                <span class="text-indigo-600">{{.Genre}}</span>
+            </div>
+            {{end}}
+        </div>
+    </div>
+
+    <!-- Add Album Form -->
+    <div class="mt-6 pt-6 border-t border-gray-100">
+        <form hx-post="/bands/{{formatBandName .Name}}/albums" 
+              hx-target="#bandsList"
+              hx-on::after="showToast('Album added successfully!', 'success')"
+              class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <input type="text" name="albumName" placeholder="Album Name" required
+                       class="p-2 cosmic-input rounded-lg shadow-sm 
+                              focus:outline-none transition duration-200">
+                <input type="number" name="year" placeholder="Year" required
+                       class="p-2 cosmic-input rounded-lg shadow-sm 
+                              focus:outline-none transition duration-200">
+                <input type="text" name="genre" placeholder="Genre" required
+                       class="p-2 cosmic-input rounded-lg shadow-sm 
+                              focus:outline-none transition duration-200">
+            </div>
+            <button type="submit" 
+                    class="cosmic-button w-full px-6 py-3 rounded-lg font-medium
+                           focus:outline-none focus:ring-2 focus:ring-indigo-500 
+                           focus:ring-offset-2 transition duration-200">
+                Add Album
+            </button>
+        </form>
+    </div>
+</div>
+{{end}}
+{{end}}
