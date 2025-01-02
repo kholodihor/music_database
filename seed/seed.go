@@ -3,8 +3,8 @@ package seed
 import (
 	"fmt"
 
-	"github.com/kholodihor/colddb/db"
-	"github.com/kholodihor/colddb/models"
+	"music-database/db"
+	"music-database/models"
 )
 
 // Database initializes the database with sample prog rock bands

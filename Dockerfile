@@ -1,14 +1,23 @@
-ARG GO_VERSION=1
-FROM golang:${GO_VERSION}-bookworm as builder
+# Use the official Go image (make sure the Go version matches your local version)
+FROM golang:1.23
 
-WORKDIR /usr/src/app
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy go.mod and go.sum first (to leverage Docker layer caching)
 COPY go.mod go.sum ./
-RUN go mod download && go mod verify
+
+# Download dependencies
+RUN go mod download
+
+# Copy the rest of the application code
 COPY . .
-RUN go build -v -o /run-app .
 
+# Build the Go app
+RUN go build -o main .
 
-FROM debian:bookworm
+# Expose the app's listening port
+EXPOSE 8080
 
-COPY --from=builder /run-app /usr/local/bin/
-CMD ["run-app"]
+# Command to run the app
+CMD ["./main"]

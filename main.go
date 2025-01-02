@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kholodihor/colddb/db"
-	"github.com/kholodihor/colddb/models"
+	"music-database/db"
+	"music-database/models"
 )
 
 type Server struct {
