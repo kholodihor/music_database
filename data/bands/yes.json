@@ -1,28 +1,26 @@
 {
-	"name": "Yes",
-	"country": "United Kingdom",
-	"year": "1968",
-	"genre": "Progressive Rock",
-	"albums": [
-		{
-			"name": "Close to the Edge",
-			"year": "1972",
-			"genre": "Progressive Rock"
-		},
-		{
-			"name": "Fragile",
-			"year": "1971",
-			"genre": "Progressive Rock"
-		},
-		{
-			"name": "The Yes Album",
-			"year": "1971",
-			"genre": "Progressive Rock"
-		},
-		{
-			"name": "Relayer",
-			"year": "1974",
-			"genre": "Progressive Rock"
-		}
-	]
+  "name": "Yes",
+  "genre": "Progressive Rock",
+  "albums": [
+    {
+      "name": "Close to the Edge",
+      "year": 1972,
+      "genre": "Progressive Rock"
+    },
+    {
+      "name": "Fragile",
+      "year": 1971,
+      "genre": "Progressive Rock"
+    },
+    {
+      "name": "The Yes Album",
+      "year": 1971,
+      "genre": "Progressive Rock"
+    },
+    {
+      "name": "Relayer",
+      "year": 1974,
+      "genre": "Progressive Rock"
+    }
+  ]
 }

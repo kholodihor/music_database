@@ -1,28 +1,26 @@
 {
-	"name": "King Crimson",
-	"country": "United Kingdom",
-	"year": "1968",
-	"genre": "Progressive Rock",
-	"albums": [
-		{
-			"name": "In the Court of the Crimson King",
-			"year": "1969",
-			"genre": "Progressive Rock"
-		},
-		{
-			"name": "Red",
-			"year": "1974",
-			"genre": "Progressive Rock"
-		},
-		{
-			"name": "Discipline",
-			"year": "1981",
-			"genre": "Progressive Rock"
-		},
-		{
-			"name": "Larks' Tongues in Aspic",
-			"year": "1973",
-			"genre": "Progressive Rock"
-		}
-	]
+  "name": "King Crimson",
+  "genre": "Progressive Rock",
+  "albums": [
+    {
+      "name": "In the Court of the Crimson King",
+      "year": 1969,
+      "genre": "Progressive Rock"
+    },
+    {
+      "name": "Red",
+      "year": 1974,
+      "genre": "Progressive Rock"
+    },
+    {
+      "name": "Discipline",
+      "year": 1981,
+      "genre": "Progressive Rock"
+    },
+    {
+      "name": "Larks' Tongues in Aspic",
+      "year": 1973,
+      "genre": "Progressive Rock"
+    }
+  ]
 }

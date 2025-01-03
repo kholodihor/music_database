@@ -1,13 +1,11 @@
 {
-	"name": "Van Der Graaf Generator",
-	"country": "UK",
-	"year": "1968",
-	"genre": "Progressive Rock",
-	"albums": [
-		{
-			"name": "Still Life",
-			"year": "1973",
-			"genre": "Progressive Rock"
-		}
-	]
+  "name": "Van Der Graaf Generator",
+  "genre": "Progressive Rock",
+  "albums": [
+    {
+      "name": "Still Life",
+      "year": 1973,
+      "genre": "Progressive Rock"
+    }
+  ]
 }
